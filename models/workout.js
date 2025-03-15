@@ -17,9 +17,7 @@ const workoutSchema = new mongoose.Schema({
     difficulty: {
         type: String,
         validate: {
-            validator: function(value) {
-                return ['Easy', 'Medium', 'Hard'].includes(value);
-            },
+            validator: (value) => ['Easy', 'Medium', 'Hard'].includes(value),
             message: props => `${props.value} is not a valid difficulty level!`
         },
         default: 'Medium'
@@ -29,7 +27,7 @@ const workoutSchema = new mongoose.Schema({
 });
 
 
-
+// register the schema
 const Workout = mongoose.model('Workout', workoutSchema)
 
 

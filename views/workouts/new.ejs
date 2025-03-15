@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New workout</title>
-
-</head>
-
-<!-- <%- include('partials/nav') %> -->
+  </head>
 
 
-
-<body>
-
+  <body>
     <h1>Create a new workout</h1>
     <form action="/workouts" method="POST">
-        <label for="name">Workout Name:</label>
-        <input type="text" name="name" id="name" required>
-        <br><br>
+      <label for="name">Workout Name:</label>
+      <input type="text" name="name" id="name" required />
+      <br /><br />
 
+      <label for="difficulty">Difficulty Level:</label>
+      <select id="difficulty" name="difficulty">
+        <option value="Easy">Easy</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
+      <br /><br />
 
-        <label for="difficulty">Difficulty Level:</label>
-        <select id="difficulty" name="difficulty">
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-        </select>
-        <br><br>
+      <label for="category">Category:</label>
+      <input type="text" name="category" id="category" required />
+      <br /><br />
 
+      <label for="duration">Workout Duration:</label>
+      <input
+        type="text"
+        name="duration"
+        id="duration"
+        placeholder="e.g., 30 mins"
+      />
+      <br /><br />
 
-        <label for="category">Category:</label>
-        <input type="text" name="name" id="name" required>
-        <br><br>
+      <h3>Add Exercises:</h3>
 
-        <label for="exercises">Add Exercises: (Seperate with comma)</label>
-        <input type="text" name="exercises" id="exercises" placeholder="e.g., Push-ups, Squats">
+      <div id="exercise-fields">
+        <div>
+          <label>Exercise Name:</label>
+          <input type="text" name="exercises[0][name]" required />
 
-        <br><br>
+          <label>Reps:</label>
+          <input type="number" name="exercises[0][reps]" min="1" />
 
-        <button type="submit">Create Workout</button>
+          <label>Sets:</label>
+          <input type="number" name="exercises[0][sets]" min="1" />
+
+          <label>Duration:</label>
+          <input
+            type="text"
+            name="exercises[0][duration]"
+            placeholder="e.g., 30 sec"
+          />
+
+          <label>Notes:</label>
+          <input type="text" name="exercises[0][notes]" />
+        </div>
+      </div>
+
+      <button type="button" onclick="addExercise()"> Add Another Exercise </button>
+
+      <br /><br />
+
+      <button type="submit">Create Workout</button>
 
     </form>
-
-</body>
+  </body>
 </html>
