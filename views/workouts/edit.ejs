@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New workout</title>
+  </head>
+
+
+  <body>
+    <h1>Editing <%=workout.name%></h1>
+    <a href="/workouts/<%=workout._id%>">Back to <%=workout.name%></a>
+
+    <form action="/workouts/<%=workout._id%>?_method=PUT" method="POST">
+      <label for="name">Workout Name:</label>
+      <input type="text" name="name" id="name" value="<%=workout.name%>" required />
+      <br /><br />
+
+      <label for="difficulty">Difficulty Level:</label>
+      <select id="difficulty" name="difficulty">
+        <option value="Easy" <%= workout.difficulty === 'Easy' ? 'selected' : '' %>>Easy</option>
+        <option value="Medium" <%= workout.difficulty === 'Medium' ? 'selected' : '' %>>Medium</option>
+        <option value="Hard" <%= workout.difficulty === 'Hard' ? 'selected' : '' %>>Hard</option>
+      </select>
+      <br /><br />
+
+      <label for="category">Category:</label>
+      <input type="text" name="category" id="category" value="<%=workout.category%>" required />
+      <br /><br />
+
+      <label for="duration">Workout Duration:</label>
+      <input
+        type="text"
+        name="duration"
+        id="duration"
+        placeholder="e.g., 30 mins"
+        value="<%=workout.duration%>"
+
+      />
+      <br /><br />
+
+      <h3>Add Exercises:</h3>
+
+      <div id="exercise-fields">
+        <% if (workout.exercises && workout.exercises.length > 0) { %>
+            <% workout.exercises.forEach((exercise, index) => { %>
+              <div class="exercise-group">
+                    <label>Exercise Name:</label>
+                    <input type="text" name="exercises[<%= index %>][name]" value="<%= exercise.name %>" required />
+
+                    <label>Reps:</label>
+                    <input type="number" name="exercises[<%= index %>][reps]" value="<%= exercise.reps || '' %>" min="1" />
+
+                    <label>Sets:</label>
+                    <input type="number" name="exercises[<%= index %>][sets]" value="<%= exercise.sets || '' %>" min="1" />
+
+                    <label>Duration:</label>
+                    <input type="text" name="exercises[<%= index %>][duration]" value="<%= exercise.duration || '' %>" placeholder="e.g., 30 sec" />
+
+                    <label>Notes:</label>
+                    <input type="text" name="exercises[<%= index %>][notes]" value="<%= exercise.notes || '' %>" />
+
+                    <button type="button" onclick="removeExercise(this)">Remove</button>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No exercises added yet.</p>
+        <% } %>
+    </div>
+
+
+
+
+      <button type="button" onclick="addExercise()"> Add Another Exercise </button>
+
+      <br /><br />
+
+      <button type="submit">Update <%=workout.name%></button>
+
+    </form>
+
+    <script src="/js/workoutHelpers.js"></script>
+
+  </body>
+</html>

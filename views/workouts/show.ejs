@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= workout.name %></title>
+  </head>
+  <body>
+
+
+    <a href="/workouts">Back to Workouts</a>
+    <a href="/workouts/<%= workout._id %>/edit">Edit <%= workout.name %></a>
+
+
+    <h1><%= workout.name %></h1>
+    <p><strong>Difficulty:</strong> <%= workout.difficulty %></p>
+    <p><strong>Category:</strong> <%= workout.category %></p>
+    <p><strong>Duration:</strong> <%= workout.duration %></p>
+    <p><strong>Created At:</strong> <%= workout.createdAt.toDateString() %></p>
+
+    <h2>Exercises</h2>
+    <% if (workout.exercises && workout.exercises.length > 0) { %>
+      <ul>
+        <% workout.exercises.forEach(exercise => { %>
+          <li>
+            <strong><%= exercise.name %></strong>
+            <% if (exercise.reps) { %> - Reps: <%= exercise.reps %> <% } %>
+            <% if (exercise.sets) { %> - Sets: <%= exercise.sets %> <% } %>
+            <% if (exercise.duration) { %> - Duration: <%= exercise.duration %> <% } %>
+            <% if (exercise.notes) { %><br />Notes: <%= exercise.notes %><% } %>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No exercises added yet.</p>
+    <% } %>
+
+
+
+    <form action="/workouts/<%=workout._id%>?_method=DELETE" method="POST">
+        <button type="submit">Delete <%= workout.name %></button>
+    </form>
+
+
+
+
+  </body>
+</html>

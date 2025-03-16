@@ -8,9 +8,16 @@
 <body>
 
     <h1>All Workouts!</h1>
+    <a href="/workouts/new">Add new Workout</a>
+
+    <hr>
 
     <% workouts.forEach((workout) => { %>
-        <li> <%= workout.name %></li>
+        <li>
+            <a href="/workouts/<%= workout._id %>">
+             <%= workout.name %>
+            </a>
+        </li>
 
     <% }) %>
 
